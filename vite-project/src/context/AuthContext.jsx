@@ -3,7 +3,11 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("dailyDiaryUser");
+
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   const register = (username, email, password) => {
     const users = JSON.parse(localStorage.getItem("dailyDiaryUsers")) || [];
@@ -55,10 +59,16 @@ export const AuthProvider = ({ children }) => {
 
     setUser(loggedInUser);
 
+    localStorage.setItem("dailyDiaryUser", JSON.stringify(loggedInUser));
+
     return {
       success: true,
       message: "Login successful.",
     };
+  };
+  const logout = () => {
+    localStorage.removeItem("dailyDiaryUser");
+    setUser(null);
   };
 
   return (
@@ -68,6 +78,7 @@ export const AuthProvider = ({ children }) => {
         setUser,
         register,
         login,
+        logout,
       }}
     >
       {children}

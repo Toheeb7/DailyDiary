@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "../context/AuthContext";
 const CreateBlog = ({ addBlog }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
-
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -16,6 +16,7 @@ const CreateBlog = ({ addBlog }) => {
       title,
       body,
       author,
+      authorId: user.id,
     };
 
     addBlog(newBlog);

@@ -6,10 +6,12 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import BlogDetails from "./pages/BlogDetails";
 import CreateBlog from "./pages/CreateBlog";
-
+import ProtectedRoute from "./components/ProtectedRoute";
+import { useAuth } from "./context/AuthContext";
 import initialBlogs from "./data/blogs";
 
 function App() {
+  const { user } = useAuth();
   const [blogs, setBlogs] = useState(() => {
     const savedBlogs = localStorage.getItem("dailyDiaryBlogs");
 
@@ -26,8 +28,18 @@ function App() {
     });
   };
   const deleteBlog = (id) => {
+    if (!user) {
+      return;
+    }
+
     setBlogs((previousBlogs) => {
-      return previousBlogs.filter((blog) => blog.id !== id);
+      return previousBlogs.filter((blog) => {
+        if (blog.id === id) {
+          return blog.authorId !== user.id;
+        }
+
+        return true;
+      });
     });
   };
 
@@ -44,7 +56,14 @@ function App() {
 
           <Route path="/blogs/:id" element={<BlogDetails blogs={blogs} />} />
 
-          <Route path="/create" element={<CreateBlog addBlog={addBlog} />} />
+          <Route
+            path="/create"
+            element={
+              <ProtectedRoute>
+                <CreateBlog addBlog={addBlog} />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

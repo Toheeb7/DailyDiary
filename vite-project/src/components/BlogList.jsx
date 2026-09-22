@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const BlogList = ({ blogs, title, deleteBlog }) => {
+  const { user } = useAuth();
   return (
     <section className="blog-list">
       <h2>{title}</h2>
@@ -17,13 +19,15 @@ const BlogList = ({ blogs, title, deleteBlog }) => {
 
           <p>{blog.body.substring(0, 100)}...</p>
 
-          <button
-            type="button"
-            className="delete-btn"
-            onClick={() => deleteBlog(blog.id)}
-          >
-            Delete
-          </button>
+          {user && blog.authorId === user.id && (
+            <button
+              type="button"
+              className="delete-btn"
+              onClick={() => deleteBlog(blog.id)}
+            >
+              Delete
+            </button>
+          )}
         </article>
       ))}
     </section>
