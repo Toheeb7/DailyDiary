@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import BlogDetails from "./pages/BlogDetails";
@@ -44,6 +45,9 @@ function App() {
           <Route path="/blogs/:id" element={<BlogDetails blogs={blogs} />} />
 
           <Route path="/create" element={<CreateBlog addBlog={addBlog} />} />
+
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>

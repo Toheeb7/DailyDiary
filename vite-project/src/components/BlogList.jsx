@@ -17,7 +17,11 @@ const BlogList = ({ blogs, title, deleteBlog }) => {
 
           <p>{blog.body.substring(0, 100)}...</p>
 
-          <button className="delete-btn" onClick={() => deleteBlog(blog.id)}>
+          <button
+            type="button"
+            className="delete-btn"
+            onClick={() => deleteBlog(blog.id)}
+          >
             Delete
           </button>
         </article>

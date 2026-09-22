@@ -1,23 +1,40 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import BlogList from "../components/BlogList";
 
-const BlogList = ({ blogs, title }) => {
+const Home = ({ blogs, deleteBlog }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredBlogs = blogs.filter((blog) =>
+    blog.title.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
   return (
-    <section className="blog-list">
-      <h2>{title}</h2>
+    <main className="home">
+      <section className="hero">
+        <h1>Welcome to DailyDiary</h1>
 
-      {blogs.map((blog) => (
-        <article className="blog-preview" key={blog.id}>
-          <Link to={`/blogs/${blog.id}`}>
-            <h3>{blog.title}</h3>
-          </Link>
+        <p>A place to share your thoughts, experiences, and stories.</p>
+      </section>
 
-          <p className="author">Written by {blog.author}</p>
+      <section className="search-section">
+        <input
+          type="text"
+          placeholder="Search blogs..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+      </section>
 
-          <p>{blog.body.substring(0, 100)}...</p>
-        </article>
-      ))}
-    </section>
+      <BlogList
+        blogs={filteredBlogs}
+        title={
+          searchTerm ? `Search results for "${searchTerm}"` : "Latest Blogs"
+        }
+        deleteBlog={deleteBlog}
+      />
+    </main>
   );
 };
 
-export default BlogList;
+export default Home;
