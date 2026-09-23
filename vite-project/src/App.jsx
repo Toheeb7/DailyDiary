@@ -9,6 +9,8 @@ import CreateBlog from "./pages/CreateBlog";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
 import initialBlogs from "./data/blogs";
+import NotFound from "./pages/NotFound";
+import EditBlog from "./pages/EditBlog";
 
 function App() {
   const { user } = useAuth();
@@ -25,6 +27,17 @@ function App() {
   const addBlog = (newBlog) => {
     setBlogs((previousBlogs) => {
       return [...previousBlogs, newBlog];
+    });
+  };
+  const updateBlog = (updatedBlog) => {
+    setBlogs((previousBlogs) => {
+      return previousBlogs.map((blog) => {
+        if (blog.id === updatedBlog.id) {
+          return updatedBlog;
+        }
+
+        return blog;
+      });
     });
   };
   const deleteBlog = (id) => {
@@ -67,6 +80,15 @@ function App() {
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+          <Route
+            path="/blogs/:id/edit"
+            element={
+              <ProtectedRoute>
+                <EditBlog blogs={blogs} updateBlog={updateBlog} />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>

@@ -4,7 +4,11 @@ import { useAuth } from "../context/AuthContext";
 const Navbar = () => {
   const { user, logout } = useAuth();
   const handleLogout = () => {
-    logout();
+    const confirmed = window.confirm("Are you sure you want to logout?");
+
+    if (confirmed) {
+      logout();
+    }
   };
 
   return (

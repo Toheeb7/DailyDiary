@@ -15,15 +15,33 @@ const BlogList = ({ blogs, title, deleteBlog }) => {
             <h3>{blog.title}</h3>
           </Link>
 
-          <p className="author">Written by {blog.author}</p>
+          <p className="author">
+            Written by {blog.author}
+            {blog.createdAt && (
+              <> • {new Date(blog.createdAt).toLocaleDateString()}</>
+            )}
+          </p>
 
           <p>{blog.body.substring(0, 100)}...</p>
+
+          <p className="reading-time">
+            {Math.max(1, Math.ceil(blog.body.trim().split(/\s+/).length / 200))}{" "}
+            min read
+          </p>
 
           {user && blog.authorId === user.id && (
             <button
               type="button"
               className="delete-btn"
-              onClick={() => deleteBlog(blog.id)}
+              onClick={() => {
+                const confirmed = window.confirm(
+                  "Are you sure you want to delete this blog?",
+                );
+
+                if (confirmed) {
+                  deleteBlog(blog.id);
+                }
+              }}
             >
               Delete
             </button>

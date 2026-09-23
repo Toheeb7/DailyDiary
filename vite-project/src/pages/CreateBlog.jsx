@@ -17,6 +17,7 @@ const CreateBlog = ({ addBlog }) => {
       body,
       author,
       authorId: user.id,
+      createdAt: new Date().toISOString(),
     };
 
     addBlog(newBlog);
