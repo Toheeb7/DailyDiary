@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+
   const handleLogout = () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
 
@@ -38,7 +39,10 @@ const Navbar = () => {
           ) : (
             <>
               <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
+
+              <Link to="/register" className="register-link">
+                Register
+              </Link>
             </>
           )}
         </div>

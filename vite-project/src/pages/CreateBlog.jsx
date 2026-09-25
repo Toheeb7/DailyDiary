@@ -1,71 +1,113 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-const CreateBlog = ({ addBlog }) => {
+
+const CreateBlog = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [author, setAuthor] = useState("");
-  const { user } = useAuth();
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newBlog = {
-      id: Date.now().toString(),
-      title,
-      body,
-      author,
-      authorId: user.id,
-      createdAt: new Date().toISOString(),
-    };
+    setMessage("");
+    setLoading(true);
 
-    addBlog(newBlog);
+    try {
+      const token = localStorage.getItem("token");
 
-    navigate("/");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/blogs`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            title,
+            body,
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMessage(data.message || "Failed to create blog.");
+        return;
+      }
+
+      setMessage("Blog published successfully!");
+
+      setTitle("");
+      setBody("");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 700);
+    } catch (error) {
+      console.error("Create blog error:", error);
+      setMessage("Unable to connect to the server.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="create-blog">
-      <h1>Create a New Blog</h1>
+    <main className="create-blog">
+      <div className="form-heading">
+        <span className="form-label">NEW JOURNAL</span>
+
+        <h1>Create a New Blog</h1>
+
+        <p>
+          Share your thoughts, experiences, ideas, or anything worth
+          remembering.
+        </p>
+      </div>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Blog Title</label>
+        <div className="form-field">
+          <label htmlFor="title">Blog Title</label>
 
-        <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter your blog title"
-          required
-        />
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Give your story a title..."
+            maxLength="120"
+            required
+          />
 
-        <label htmlFor="author">Author</label>
+          <span className="character-count">{title.length}/120</span>
+        </div>
 
-        <input
-          id="author"
-          type="text"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          placeholder="Enter your name"
-          required
-        />
+        <div className="form-field">
+          <label htmlFor="body">Blog Content</label>
 
-        <label htmlFor="body">Blog Content</label>
+          <textarea
+            id="body"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            placeholder="Start writing your story..."
+            rows="10"
+            required
+          />
 
-        <textarea
-          id="body"
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-          placeholder="Write your blog..."
-          rows="8"
-          required
-        />
+          <span className="writing-hint">Take your time. Write freely.</span>
+        </div>
 
-        <button type="submit">Publish Blog</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Publishing..." : "Publish Blog →"}
+        </button>
+
+        {message && <p className="auth-message form-message">{message}</p>}
       </form>
-    </div>
+    </main>
   );
 };
 

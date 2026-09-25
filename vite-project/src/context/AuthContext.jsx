@@ -1,73 +1,61 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem("dailyDiaryUser");
+    try {
+      const savedUser = localStorage.getItem("user");
 
-    return savedUser ? JSON.parse(savedUser) : null;
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch (error) {
+      console.error("Failed to load saved user:", error);
+
+      localStorage.removeItem("user");
+      return null;
+    }
   });
 
-  const register = (username, email, password) => {
-    const users = JSON.parse(localStorage.getItem("dailyDiaryUsers")) || [];
+  const [authLoading, setAuthLoading] = useState(true);
 
-    const existingUser = users.find((user) => user.email === email);
+  useEffect(() => {
+    const verifyToken = async () => {
+      const token = localStorage.getItem("token");
 
-    if (existingUser) {
-      return {
-        success: false,
-        message: "An account with this email already exists.",
-      };
-    }
+      if (!token) {
+        setAuthLoading(false);
+        return;
+      }
 
-    const newUser = {
-      id: Date.now().toString(),
-      username,
-      email,
-      password,
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/auth/verify`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        if (!response.ok) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Token verification failed:", error);
+      } finally {
+        setAuthLoading(false);
+      }
     };
 
-    users.push(newUser);
+    verifyToken();
+  }, []);
 
-    localStorage.setItem("dailyDiaryUsers", JSON.stringify(users));
-
-    return {
-      success: true,
-      message: "Account created successfully.",
-    };
-  };
-  const login = (email, password) => {
-    const users = JSON.parse(localStorage.getItem("dailyDiaryUsers")) || [];
-
-    const foundUser = users.find(
-      (user) => user.email === email && user.password === password,
-    );
-
-    if (!foundUser) {
-      return {
-        success: false,
-        message: "Invalid email or password.",
-      };
-    }
-
-    const loggedInUser = {
-      id: foundUser.id,
-      username: foundUser.username,
-      email: foundUser.email,
-    };
-
-    setUser(loggedInUser);
-
-    localStorage.setItem("dailyDiaryUser", JSON.stringify(loggedInUser));
-
-    return {
-      success: true,
-      message: "Login successful.",
-    };
-  };
   const logout = () => {
-    localStorage.removeItem("dailyDiaryUser");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
     setUser(null);
   };
 
@@ -76,9 +64,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         setUser,
-        register,
-        login,
         logout,
+        authLoading,
       }}
     >
       {children}

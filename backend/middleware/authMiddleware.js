@@ -14,17 +14,7 @@ const protect = (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    console.log("Decoded JWT:", decoded);
-
-    req.user = decoded.userId || decoded.id || decoded._id;
-
-    console.log("User ID assigned:", req.user);
-
-    if (!req.user) {
-      return res.status(401).json({
-        message: "Token does not contain a user ID.",
-      });
-    }
+    req.user = decoded.id;
 
     next();
   } catch (error) {

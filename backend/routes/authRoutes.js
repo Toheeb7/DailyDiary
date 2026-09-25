@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const protect = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -96,5 +97,30 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+router.get("/verify", protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user).select("-password");
 
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found.",
+      });
+    }
+
+    res.json({
+      valid: true,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    console.error("Token verification error:", error);
+
+    res.status(500).json({
+      message: "Server error while verifying token.",
+    });
+  }
+});
 module.exports = router;
