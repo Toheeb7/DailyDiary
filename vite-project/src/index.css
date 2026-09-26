@@ -1,7 +1,3 @@
-/* =========================
-   GLOBAL
-========================= */
-
 * {
   box-sizing: border-box;
 }
@@ -55,9 +51,7 @@ textarea {
   touch-action: manipulation;
 }
 
-/* =========================
-   NAVBAR
-========================= */
+/*   NAVBAR*/
 
 .navbar {
   width: 100%;
@@ -81,10 +75,6 @@ textarea {
   gap: 30px;
 }
 
-/* =========================
-   LOGO
-========================= */
-
 .logo {
   color: #111827;
   font-size: 24px;
@@ -96,10 +86,6 @@ textarea {
 .logo:hover {
   color: #4b5563;
 }
-
-/* =========================
-   NAV LINKS
-========================= */
 
 .nav-links {
   display: flex;
@@ -139,9 +125,7 @@ textarea {
   width: 100%;
 }
 
-/* =========================
-   MAIN
-========================= */
+/*MAIN*/
 
 main {
   width: 100%;
@@ -152,9 +136,7 @@ main {
   margin: 0 auto;
 }
 
-/* =========================
-   HERO
-========================= */
+/*HEROSECTION*/
 
 .hero {
   width: min(92%, 850px);
@@ -181,9 +163,7 @@ main {
   animation: fadeUp 0.6s ease 0.1s both;
 }
 
-/* =========================
-   SEARCH
-========================= */
+/* SEARCH*/
 
 .search-section {
   width: min(92%, 700px);
@@ -222,9 +202,9 @@ main {
   transform: translateY(-1px);
 }
 
-/* =========================
+/* 
    BLOG LIST
-========================= */
+ */
 
 .blog-list {
   width: min(92%, 850px);
@@ -237,10 +217,6 @@ main {
   font-size: 28px;
   letter-spacing: -0.5px;
 }
-
-/* =========================
-   BLOG CARD
-========================= */
 
 .blog-preview {
   position: relative;
@@ -299,10 +275,6 @@ main {
   color: #9ca3af !important;
   font-size: 12px !important;
 }
-
-/* =========================
-   BLOG DETAILS
-========================= */
 
 .blog-details {
   width: min(92%, 800px);
@@ -365,10 +337,6 @@ main {
   margin-top: 25px;
 }
 
-/* =========================
-   BLOG ACTIONS
-========================= */
-
 .blog-actions {
   margin-top: 25px;
 }
@@ -405,9 +373,9 @@ main {
   transform: scale(0.97);
 }
 
-/* =========================
+/*
    CREATE / EDIT BLOG
-========================= */
+*/
 
 .create-blog {
   width: min(92%, 720px);
@@ -534,9 +502,9 @@ main {
   box-shadow: none;
 }
 
-/* =========================
+/* 
    AUTH PAGES
-========================= */
+*/
 
 .auth-page {
   width: 100%;
@@ -675,9 +643,9 @@ main {
   text-decoration: underline;
 }
 
-/* =========================
+/* 
    DELETE BUTTON
-========================= */
+*/
 
 .delete-btn {
   min-height: 40px;
@@ -714,9 +682,9 @@ main {
   transform: scale(0.97);
 }
 
-/* =========================
+/*
    NOT FOUND
-========================= */
+*/
 
 .not-found {
   width: min(92%, 700px);
@@ -780,10 +748,6 @@ main {
   transform: translateY(-2px);
 }
 
-/* =========================
-   ANIMATIONS
-========================= */
-
 @keyframes fadeDown {
   from {
     opacity: 0;
@@ -808,9 +772,9 @@ main {
   }
 }
 
-/* =========================
+/* 
    TABLET
-========================= */
+*/
 
 @media (max-width: 768px) {
   .navbar-container {
@@ -852,9 +816,8 @@ main {
   }
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* 
+   MOBILE */
 
 @media (max-width: 600px) {
   .navbar-container {
@@ -1006,9 +969,9 @@ main {
   }
 }
 
-/* =========================
+/* 
    SMALL PHONES
-========================= */
+*/
 
 @media (max-width: 380px) {
   .navbar-container {
@@ -1052,9 +1015,8 @@ main {
   }
 }
 
-/* =========================
-   TOUCH DEVICES
-========================= */
+/* 
+   TOUCH DEVICES*/
 
 @media (hover: none) {
   .blog-preview:hover,
@@ -1076,10 +1038,6 @@ main {
   }
 }
 
-/* =========================
-   REDUCED MOTION
-========================= */
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1093,9 +1051,9 @@ main {
     transition-duration: 0.01ms !important;
   }
 }
-/* =========================
+/* 
    NAVBAR USER / BUTTON
-========================= */
+ */
 
 .welcome-user {
   color: #6b7280;
@@ -1160,9 +1118,9 @@ main {
   transform: translateY(-1px) !important;
 }
 
-/* =========================
+/* 
    NAVBAR MOBILE
-========================= */
+*/
 
 @media (max-width: 600px) {
   .welcome-user {
@@ -1195,17 +1153,10 @@ main {
     padding: 7px 10px;
   }
 }
-/* =========================
-   HOME PAGE
-========================= */
 
 .home {
   width: 100%;
 }
-
-/* =========================
-   HERO LABEL
-========================= */
 
 .hero-label {
   display: inline-block;
@@ -1229,10 +1180,6 @@ main {
 .hero h1 span {
   color: #6b7280;
 }
-
-/* =========================
-   LOADING
-========================= */
 
 .loading-state {
   width: min(92%, 850px);
@@ -1263,10 +1210,6 @@ main {
   margin: 0;
   font-size: 14px;
 }
-
-/* =========================
-   EMPTY / ERROR STATE
-========================= */
 
 .empty-state {
   width: min(92%, 650px);
@@ -1299,10 +1242,6 @@ main {
   }
 }
 
-/* =========================
-   HOME MOBILE
-========================= */
-
 @media (max-width: 600px) {
   .hero-label {
     font-size: 10px;
@@ -1319,9 +1258,9 @@ main {
     animation: none;
   }
 }
-/* =========================
+/* 
    BLOG LIST HEADER
-========================= */
+ */
 
 .blog-list-header {
   display: flex;
@@ -1340,10 +1279,6 @@ main {
   font-size: 13px;
   white-space: nowrap;
 }
-
-/* =========================
-   BLOG CARD TOP
-========================= */
 
 .blog-card-top {
   display: flex;
@@ -1374,17 +1309,9 @@ main {
   margin: 0 !important;
 }
 
-/* =========================
-   BLOG EXCERPT
-========================= */
-
 .blog-excerpt {
   margin-bottom: 20px !important;
 }
-
-/* =========================
-   BLOG CARD FOOTER
-========================= */
 
 .blog-card-footer {
   display: flex;
@@ -1420,9 +1347,8 @@ main {
   padding: 7px 12px;
 }
 
-/* =========================
-   NO BLOGS
-========================= */
+/*
+   NO BLOGS*/
 
 .no-blogs {
   padding: 55px 25px;
@@ -1467,9 +1393,9 @@ main {
   line-height: 1.6;
 }
 
-/* =========================
+/*
    BLOG CARD MOBILE
-========================= */
+*/
 
 @media (max-width: 600px) {
   .blog-list-header {
@@ -1516,9 +1442,9 @@ main {
     font-size: 8px;
   }
 }
-/* =========================
+/* 
    ARTICLE HEADER
-========================= */
+*/
 
 .article-header {
   margin-bottom: 32px;
@@ -1564,9 +1490,9 @@ main {
   color: #d1d5db;
 }
 
-/* =========================
+/*
    ARTICLE CONTENT
-========================= */
+ */
 
 .details-content {
   position: relative;
@@ -1589,9 +1515,9 @@ main {
   white-space: pre-wrap;
 }
 
-/* =========================
+/* 
    NOT FOUND ICON
-========================= */
+ */
 
 .not-found-icon {
   width: 55px;
@@ -1612,9 +1538,9 @@ main {
   font-weight: 700;
 }
 
-/* =========================
+/* 
    ARTICLE MOBILE
-========================= */
+ */
 
 @media (max-width: 600px) {
   .article-header {
@@ -1640,9 +1566,9 @@ main {
     line-height: 1.7;
   }
 }
-/* =========================
+/* 
    FORM HEADING
-========================= */
+*/
 
 .form-heading {
   margin-bottom: 28px;
@@ -1677,10 +1603,6 @@ main {
   line-height: 1.7;
 }
 
-/* =========================
-   FORM FIELD
-========================= */
-
 .form-field {
   position: relative;
   display: flex;
@@ -1708,18 +1630,14 @@ main {
   margin-bottom: 8px;
 }
 
-/* =========================
-   FORM MESSAGE
-========================= */
-
 .form-message {
   text-align: center;
   padding: 10px 0 0;
 }
 
-/* =========================
+/* 
    FORM MOBILE
-========================= */
+*/
 
 @media (max-width: 600px) {
   .form-heading {
@@ -1734,9 +1652,9 @@ main {
     margin-bottom: 10px;
   }
 }
-/* =========================
+/* 
    AUTH HEADING
-========================= */
+ */
 
 .auth-heading {
   margin-bottom: 28px;
@@ -1757,9 +1675,9 @@ main {
   line-height: 1.7;
 }
 
-/* =========================
+/* 
    AUTH INPUT POLISH
-========================= */
+*/
 
 .auth-card input {
   transition:
@@ -1776,9 +1694,9 @@ main {
   margin-top: 24px;
 }
 
-/* =========================
+/* 
    AUTH MOBILE
-========================= */
+ */
 
 @media (max-width: 600px) {
   .auth-heading {
